@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Tarefas</title>
+    <link rel="shortcut icon" href="Image/TASKLIST-PNG.ico" type="image/x-icon">
+    <!-- link de site externo para css -->
+    <link rel="stylesheet" href="style.css">
+    <!-- link de fonte de icones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <!-- barra de navegação -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="#"><img src="Image/TASKLIST-PNG.png" alt="logo do peojeto"
+                        width="70px"></a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" target="_parent" aria-current="page" href="layout.html">Ínicio <i
+                                class="fa-solid fa-house"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_parent" href="pagina3.html">Criar Tarefa <i
+                                class="fa-solid fa-pen"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_parent" href="pagina4.html">Ver Tarefas <i
+                                class="fa-solid fa-list-check"></i></a>
+                    </li>
+                </ul>
+                <div class="buttons">
+                    <button type="button" class="btn btn-outline-success criar"><a id="criar" class="link-externo"
+                            href="pagina2.html">Criar Conta</a></button>
+                    <button type="button" class="btn btn-primary"><a id="entrar" class="link-externo"
+                            href="pagina1.html">Entrar</a></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- link de estilo do boostarp da pagina layout -->
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Minhas Tarefas</h1>
+        <div id="listaTarefas" class="row row-cols-1 row-cols-md-2 g-4">
+            <!-- Tarefas serão inseridas aqui -->
+        </div>
+    </div>
+
+
+    <script>
+        (function () {
+            if (!document.querySelector('link[href*="bootstrap.min.css"]')) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';
+                document.head.appendChild(link);
+            }
+        })();
+
+        // Recupera as tarefas salvas
+        const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+
+        const lista = document.getElementById('listaTarefas');
+
+        if (tarefas.length === 0) {
+            lista.innerHTML = '<p class="text-muted">Nenhuma tarefa cadastrada.</p>';
+        } else {
+            tarefas.forEach((tarefa, index) => {
+                const card = `
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">${tarefa.titulo}</h5>
+                            <p class="card-text">${tarefa.descricao}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+                lista.innerHTML += card;
+            });
+        }
+    </script>
+</body>
+
+</html>
